@@ -1,0 +1,26 @@
+Base Case: n = 2
+
+2^(2*2) - 1 = 15
+15 = 5*3
+Since 2^(2*2) - 1 = 3n for some n in the integers, 3 divides it and the base case is true.
+
+Induction Hypothesis:
+Assume that 3 divides 2^(2*n) - 1 for some n >= 2.
+So, we can say that 2^(2n) - 1 = 3x for some integer x.
+
+Induction Step:
+We want to prove that for n+1, 3 divides 2^(2*(n+1)) - 1.
+
+2^(2*(n+1)) - 1 = 2^(2n+2) - 1
+                = 2^(2n) * 2^2 - 1
+                = 2^2n * 2^2 - 2^2 + 2^2 - 1
+                = 2^2 * (2^2n - 1) + 2^2 - 1
+                = 2^2 * (3x) + 2^2 - 1
+                = 4 * 3x + 4 - 1
+                = 12x + 3
+                = 3 * (4x + 1)
+
+Since 2^(2*(n+1)) = 3 * (4x + 1) for some integer x, we can say that 2^(2*(n+1)) = 3y for some integer y. Here, we can say that 3 divides 2^(2*(n+1)).
+
+Proof:
+We now know that the base case, n=2, and the induction step, k+1 assuming k, are both possible. From these statements, we can see that 3 divides 2^(2*(n+1)) for all integers greater than or equal to 2. 
