@@ -8,7 +8,7 @@
 class State {
 private:
   int index;
-  int stateType;
+  int stateType; //0 = start, 1 = accept, 2 = reject, 3 = null
   std::list<Transition> transitions;
 
 public:
@@ -23,6 +23,14 @@ public:
 
   int getStateType(){
     return stateType;
+  }
+
+  void setStateType(int setType){
+    stateType = setType;
+  }
+
+  void addTransition(Transition connection){
+    transitions.push_back(connection);
   }
 
 };
