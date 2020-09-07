@@ -29,6 +29,10 @@ public:
     stateType = setType;
   }
 
+  std::list<Transition> getTransitions(){
+    return transitions;
+  }
+
   void addTransition(Transition connection){
     transitions.push_back(connection);
   }

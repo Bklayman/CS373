@@ -140,12 +140,63 @@ std::list<State*> createFiniteAutomata(char* fileName){
   return results;
 }
 
+void loadString(std::list<State*> finiteAutomata, char* input, int transitionLimit){
+  State* curState = nullptr;
+  for(std::list<State*>::iterator stateIt = finiteAutomata.begin(); stateIt != finiteAutomata.end(); ++stateIt){
+    if((*stateIt)->getStateType() == 0){
+      curState = *stateIt;
+      break;
+    }
+  }
+  std::list<int> stateIndexes;
+  bool accepted = false;
+  bool rejected = false;
+  bool quit = false;
+  int charPointer = 0;
+  while(!accepted && !rejected && !quit){
+    stateIndexes.push_back(curState->getIndex());
+    if(input[charPointer] == '\0'){
+      rejected = true;
+      break;
+    }
+    Transition* curTransition = nullptr;
+    for(std::list<Transition>::iterator transIt = curState->getTransitions().begin(); transIt != curState->getTransitions().end(); ++transIt){
+      if((*transIt).getSymbol() == input[charPointer]){
+        curTransition = &(*transIt);
+        break;
+      }
+    }
+    if(curTransition == nullptr){
+      rejected = true;
+      break;
+    }
+    //TODO
+  }
+  std::string output;
+  bool first = true;
+  for(std::list<int>::iterator intIt = stateIndexes.begin(); intIt != stateIndexes.end(); ++intIt){
+    if(!first){
+      output += "->";
+    }
+    output += *intIt;
+  }
+  if(accepted){
+    output += " accept";
+  } else if(rejected){
+    output += " reject";
+  } else{
+    output += " quit";
+  }
+  std::cout << output << std::endl;
+}
+
 int main(int argc, char* argv[]){
-  if(argc != 3){
-    std::cout << "Usage: ./klayman_p1 <text file defining FA> <string to run through defined FA>" << std::endl;
+  if(argc != 4){
+    std::cout << "Usage: ./klayman_p1 <text file defining FA> <string to run through defined FA> <transition limit>" << std::endl;
     exit(1);
   }
 
+  int transitionLimit = stringToInt(argv[3]);
   std::list<State*> finiteAutomata = createFiniteAutomata(argv[1]);
-
+  loadString(finiteAutomata, argv[2], transitionLimit);
 }
