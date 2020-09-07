@@ -6,22 +6,6 @@
 #include "state.hh"
 #include "transition.hh"
 
-// void printList(std::list<std::string> listStr){
-//   std::cout << "PrintedList: " << std::endl;
-//   for(std::list<std::string>::iterator listIt = listStr.begin(); listIt != listStr.end(); ++listIt){
-//     std::cout << *listIt << std::endl;
-//   }
-//   std::cout << std::endl;
-// }
-
-// void printList(std::list<State*> listState){
-//   std::cout << "Printed List: " << std::endl;
-//   for(std::list<State*>::iterator stateIt = listState.begin(); stateIt != listState.end(); ++stateIt){
-//     std::cout << (*stateIt)->getIndex() << std::endl;
-//   }
-//   std::cout << std::endl;
-// }
-
 void printStates(std::list<State*> states){
   for(std::list<State*>::iterator stateIt = states.begin(); stateIt == states.end(); ++stateIt){
     State* curState = *stateIt;
@@ -153,14 +137,20 @@ void loadString(std::list<State*> finiteAutomata, char* input, int transitionLim
   bool rejected = false;
   bool quit = false;
   int charPointer = 0;
+  int transitionCounter = 0;
   while(!accepted && !rejected && !quit){
     stateIndexes.push_back(curState->getIndex());
-    if(input[charPointer] == '\0'){
+    if(curState->getStateType() == 1){
+      accepted = true;
+      break;
+    }
+    if (curState->getStateType() == 2 || charPointer < 0 || input[charPointer] == '\0'){
       rejected = true;
       break;
     }
     Transition* curTransition = nullptr;
-    for(std::list<Transition>::iterator transIt = curState->getTransitions().begin(); transIt != curState->getTransitions().end(); ++transIt){
+    std::list<Transition> curTransitions = curState->getTransitions();
+    for(std::list<Transition>::iterator transIt = curTransitions.begin(); transIt != curTransitions.end(); ++transIt){
       if((*transIt).getSymbol() == input[charPointer]){
         curTransition = &(*transIt);
         break;
@@ -170,15 +160,37 @@ void loadString(std::list<State*> finiteAutomata, char* input, int transitionLim
       rejected = true;
       break;
     }
-    //TODO
+    input[charPointer] = curTransition->getOverwrite();
+    if(curTransition->getMove() == 'L'){
+      charPointer--;
+    } else {
+      charPointer++;
+    }
+    int target = curTransition->getTarget();
+    bool stateFound = false;
+    for(std::list<State*>::iterator stateIt = finiteAutomata.begin(); stateIt != finiteAutomata.end(); ++stateIt){
+      if((*stateIt)->getIndex() == target){
+        curState = *stateIt;
+        stateFound = true;
+        break;
+      }
+    }
+    if(!stateFound){
+      rejected = true;
+    }
+    transitionCounter++;
+    if(transitionCounter == transitionLimit){
+      quit = true;
+    }
   }
   std::string output;
   bool first = true;
   for(std::list<int>::iterator intIt = stateIndexes.begin(); intIt != stateIndexes.end(); ++intIt){
     if(!first){
-      output += "->";
+      std::cout << "->";
     }
-    output += *intIt;
+    std::cout << *intIt;
+    first = false;
   }
   if(accepted){
     output += " accept";
