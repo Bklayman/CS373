@@ -6,6 +6,29 @@
 #include "state.hh"
 #include "transition.hh"
 
+// void printList(std::list<std::string> listStr){
+//   std::cout << "PrintedList: " << std::endl;
+//   for(std::list<std::string>::iterator listIt = listStr.begin(); listIt != listStr.end(); ++listIt){
+//     std::cout << *listIt << std::endl;
+//   }
+//   std::cout << std::endl;
+// }
+
+// void printList(std::list<State*> listState){
+//   std::cout << "Printed List: " << std::endl;
+//   for(std::list<State*>::iterator stateIt = listState.begin(); stateIt != listState.end(); ++stateIt){
+//     std::cout << (*stateIt)->getIndex() << std::endl;
+//   }
+//   std::cout << std::endl;
+// }
+
+void printStates(std::list<State*> states){
+  for(std::list<State*>::iterator stateIt = states.begin(); stateIt == states.end(); ++stateIt){
+    State* curState = *stateIt;
+    std::cout << curState->getIndex() << std::endl;
+  }
+}
+
 char stringToChar(std::string originalString){
   if(originalString.size() != 1){
     std::cout << "Error: " << originalString << " has more than one character." << std::endl;
@@ -25,15 +48,18 @@ int stringToInt(std::string originalString){
   return result;
 }
 
-std::list<std::string> splitString(std::string input){
+std::list<std::string> splitString(std::string input){ //Does not work
   std::list<std::string> result;
-  int spaceLocation = input.find(" ");
-  while(spaceLocation != -1){
-    std::string token = input.substr(0, spaceLocation);
-    result.push_back(token);
-    input = input.substr(spaceLocation + 1, input.size() - spaceLocation - 1);
-    spaceLocation = input.find(" ");
+  std::string word = "";
+  for(auto inputChar : input){
+    if((int)inputChar == 32 || (int)inputChar == 9){
+      result.push_back(word);
+      word = "";
+    } else {
+      word += inputChar;
+    }
   }
+  result.push_back(word);
   return result;
 }
 
@@ -92,7 +118,11 @@ std::list<State*> createFiniteAutomata(char* fileName){
       int stateIndex = stringToInt(stateIndexStr);
       int typeIndex = -1;
       if(stateType == "start"){
+        if(startExists){
+          std::cout << "Error: Multiple start states found." << std::endl;
+        }
         typeIndex = 0;
+        startExists = true;
       } else if(stateType == "accept") {
         typeIndex = 1;
       } else if(stateType == "reject") {
@@ -101,6 +131,7 @@ std::list<State*> createFiniteAutomata(char* fileName){
         typeIndex = 3;
       } else {
         std::cout << "Error: Invalid state type given." << std::endl;
+        exit(1);
       }
       State* curState = new State(stateIndex, typeIndex);
       results.push_back(curState);
@@ -116,5 +147,5 @@ int main(int argc, char* argv[]){
   }
 
   std::list<State*> finiteAutomata = createFiniteAutomata(argv[1]);
-  
+
 }
