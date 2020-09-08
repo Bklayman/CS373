@@ -6,11 +6,13 @@
 #include "state.hh"
 #include "transition.hh"
 
-void printStates(std::list<State*> states){
-  for(std::list<State*>::iterator stateIt = states.begin(); stateIt == states.end(); ++stateIt){
-    State* curState = *stateIt;
-    std::cout << curState->getIndex() << std::endl;
+char* replaceSpaces(char* original){
+  for(int i = 0; original[i] != '\0'; i++){
+    if(original[i] == ' '){
+      original[i] = '_';
+    }
   }
+  return original;
 }
 
 char stringToChar(std::string originalString){
@@ -32,13 +34,15 @@ int stringToInt(std::string originalString){
   return result;
 }
 
-std::list<std::string> splitString(std::string input){ //Does not work
+std::list<std::string> splitString(std::string input){
   std::list<std::string> result;
   std::string word = "";
   for(auto inputChar : input){
     if((int)inputChar == 32 || (int)inputChar == 9){
-      result.push_back(word);
-      word = "";
+      if(word != ""){
+        result.push_back(word);
+        word = "";
+      }
     } else {
       word += inputChar;
     }
@@ -179,7 +183,7 @@ void loadString(std::list<State*> finiteAutomata, char* input, int transitionLim
       rejected = true;
     }
     transitionCounter++;
-    if(transitionCounter == transitionLimit){
+    if(transitionCounter == transitionLimit + 1){
       quit = true;
     }
   }
@@ -208,6 +212,7 @@ int main(int argc, char* argv[]){
     exit(1);
   }
 
+  argv[2] = replaceSpaces(argv[2]);
   int transitionLimit = stringToInt(argv[3]);
   std::list<State*> finiteAutomata = createFiniteAutomata(argv[1]);
   loadString(finiteAutomata, argv[2], transitionLimit);
