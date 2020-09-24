@@ -1,0 +1,22 @@
+To prove that 2^2 < n! for all n > 3, we will use induction.
+
+Base Case: n = 4
+
+2^4 = 16             4! = 24
+
+Since 16 < 24, the base case is correct.
+
+Induction Hypothesis:
+Assume that 2^2 < n! for some n > 3.
+
+Induction Step:
+We want to prove that if the induction hypothesis is true for some n > 3, then 2^n+1 < (n+1)!.
+
+2^n+1 = 2^n * 2           Definition of exponent
+      < n! * 2            Induction Hypothesis
+      < n! * (n+1)        2 < n+1 for all n > 3
+      = (n+1)!            Definition of factorial
+
+So, we can say that 2^n+1 < (n+1)! if 2^2 < n! for some n > 3.
+
+Since the base case n=4 and the induction step of n+1 assuming n both function correctly, we can say that 2^n < n! for all integers n greater than 3.
