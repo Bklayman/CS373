@@ -1,0 +1,177 @@
+Name: Brendan Klayman
+
+Use the following in this file:
+a) "e" for the empty string
+b) "w_n" for w subscript n
+c) "w^n" for w superscript n
+d) "->" for arrow in context free grammar rules
+e) "U" uppercase "u" for union
+f) "*" for the star operation
+g) add as many lines to the file as you need to answer the questions
+h) "=>" for yields
+i) "=>*" for derives
+
+Submit the following files as attachments to an e-mail to me no later than 5 minutes after your class ends,5:55pm, with a subject of "cs 373 test 1":
+a) "your_last_name_test_1.txt"
+b) "your_last_name_test_1_q9.jff"
+c) "your_last_name_test_1_q10.jff"
+d) "your_last_name_test_1_q11.jff"
+
+1) Write answer below.
+	a) Transition s -> a
+	(abUe)b*a
+	b) Transition s -> 2
+	a(aUb)U(abUe)b*bb
+	c) Transition 2 -> 2
+	ab(b*)bb
+	d) Transition 2 -> a
+	eUab(b*)a
+
+2) Write answer below.
+A language is context free if a valid pushdown automata has the same langauge or a valid context free grammar has the same language.
+
+
+3) List the letters that are true from {a, b, c, d, e}.
+b
+
+
+4) Write answer below.
+Two finite automata are equivalent if they contain the same words in their languages.
+
+
+5) List the regular operations below from {union, intersection, concatenation, star, complement}.
+union, concatenation, star
+
+
+6) Write answer below.
+
+	a) string (s = )
+	s = 0^p1^p
+
+	b) cases (vxy <=)
+	vxy <= all 0s, all 1s, or 0s and 1s
+
+	c) how will you pump the string for each case (up/down or i = )
+	all 0s: i = 2
+	all 1s: 1 = 0
+	0s and 1s: i = 0
+
+	d) what is the contradiction for each case (why isn't uv^ixy^iz in L)
+	Pumping up makes the number of 0s greater than the number of 1s added to number of 2s, creating a contradiction.
+	Pumping down makes the number of 0s greater than the number of 1s added to number of 2s, creating a contradiction.
+	Pumping down makes a contradiction, probably.
+
+
+7) List the letters that are regular languages {a, b, c, d}.
+b d
+
+
+8) Write answer below.
+
+	a) string (s = )
+	s = 0^p1^p
+
+	b) case (x = , y = , z = )
+	x = 0^n
+	y = 0^m
+	z = 0^(p-n-m)1^p
+
+	c) how will you pump the string (up/down or i = )
+	Pump to i = 0.
+
+	d) what is the contradiction (why isn't xy^iz in L)
+	With i = 0, xy^0z = 0^(p-m)1^p. Since m must be a positive integer, p-m < p must be true. So, the number of 0s is less than the number of 1s. Since no 2s exist in this string, the number of 0s is less than the number of 2s. This contradicts both conditions of this language, making a contradiction.
+
+
+9) Submit a JFLAP DFA. Filename of "your_last_name_test_1_q9.jff"
+
+10) Submit a JFLAP PDA. Filename of "your_last_name_test_1_q10.jff"
+
+11) Submit a JFLAP NFA. Filename of "your_last_name_test_1_q11.jff"
+
+12) Write answer below.
+
+	a) resulting rules after epsilon rules removed
+	S -> A | BC | B | e
+	A -> CC | a | C | e
+	B -> aB | BCBC | BBC | BCB | BB
+	C -> AA
+
+	b) resulting rules after unit rules removed
+	S -> BC | AB | a | ab | AC | aa | ba
+	A -> AB | a | ab | AC | aa | ba
+	B -> ab | AC | aa | ba
+	C -> aa | ba
+
+	c) resulting rules after converting to Chomsky normal form
+	S -> AB | DA | HC | a
+	A -> AA | BC | DE
+	B -> a | GF
+	C -> a | DE
+	D -> a
+	E -> b
+	F -> c
+	G -> DE
+	H -> AB
+
+13) Write CFG rules below.
+S -> A | B
+A -> 0A0 | #0C
+C -> 0C | e
+B -> 00B0 | 0D#
+D -> 0D | e
+
+
+14) Write answer below.
+This is a regular language.
+Claim: Strings of odd length beginning with 0 from A is a regular language
+	We will create an NFA with three sections to represent this language. Sections 1 and 2 will be duplicates of the NFA representing A.
+	A new start state will be created that contains the same number of transitions accepting 0 as the original NFA had. These transitions go to the same states as the original start state, but all in section 2.
+	Every transition in sections one and two will remain the same, but will point to the equivalent state in the other section.
+	Every accept state in section 2 will remain accept states, all other states will not be accept states.
+	This way, accepted words must start with 0 and have an odd length, fitting this language.
+Claim: Strings of even length ending with 0 from B is a regular language.
+	We will create an NFA with three sections to represent this language. Sections 1 and 2 will be duplicates of the NFA representing B.
+	The start state from section 1 will be the start state in this NFA. Every existing transition in both sections will lead to the same state, but in the opposite section.
+	In section 1, new states will be created for every pre-existing start state. These new states will be the only start states in this new NFA. Every transition that would have led to an accept state in section 1 accepting a 0 will lead to an accept state. Each new accept state has the same transitions as the previous accept states, while still leading to the same states in section 2.
+	This way, all accepted words must have even length and end with 0, fitting this language.
+Since concatenation is closed under regular languages and both sets of words are regular languages, this entire language is a regular language.
+
+
+15) Write answer below.
+This regular expression defines this language:
+
+(O U 1)*0000 U (0 U 1)*0010(0 U 1)*1101(0 U 1)* U (0 U 1)*1101(0 U 1)*0010(0 U 1)*
+
+Since a regular expression exists for this langauge, it is a regular langauge.
+
+
+16) Write answer below (use => for yields and =>* for derives).
+
+	a) if w is an element of L(G), show w is an element of AB U C.
+	Suppose w is an element of L(G). w can then be created by the rules in G.
+	The start variable of G either leads to S_AS_B or S_C.
+	If the start variable leads to S_C, rules from G_C will create a word with no pre-existing terminals. This word would then belong to C.
+	If the start variable leads to S_AS_B, then the word created will have two sections: the first being made from the rules in G_A and the second being made from the rules of G_B. Since there are no pre-existing terminals before either sets of rules can start, the new word must be a word from A followed by a word from B. This is the definition of A concatenated with B.
+	So, depending on which rule w takes from the start state, w will either be from C or from A concatenated with B.
+
+
+	b) if w is an element of AB U C, show w is an element of L(G).
+	Suppose w is an element of AB U C. w can then be created by either G_C or the set of rules used to create a word of A followed by the set of rules used to create a word in B.
+	We can tell that if w is an element of C, then G can create C easily by using the S -> S_C rule at its start state.
+	If w is an element of AB, then it must have a valid set of rules from A followed by B. This is created by the S -> S_AS_B rule from G's start state. Since S_A and S_B create words from A and B respectively, w could be created, as it is from AB.
+	Since w can be created from some rule at G's start state, it is an element of L(G).
+
+
+
+17) Write answer below. Do the best you can explaining in words your proof or your counter example.
+A~B is a CFL.
+Since A and B are regular languages, there exist DFAs C and D that describe these languages.
+We will create a CFL, M, that describes A~B.
+	M will have a new state as a start state. This state will have one transition pushing a $ onto the stack, accepting e, and leading to C's start state.
+	Every transition from C will remain in M, while now pushing a 0 onto the stack.
+	Every accept state from C is no longer an accept state. These will all have transitions accepting e, popping 0, and leading to D's original start state.
+	The transitions from D will remain as normal, while also popping 0. All original accept states in D are accept states here. A new section 3 and 4 will be created with the same states as D.
+	Every transition from D will have another transition accepting the same character but popping $ and leading to the same state in section 3. No states in section 3 are accept states. Every transition in section 3 will work as normal, but lead to the same state in section 4 while popping and pushing nothing.
+	In section 4, every transition will work as in D with no popping or pushing. The accept states from D are accept states in section 4.
+	M should now accept all words xy such that x is from L(A), y is from L(B), and x and y's sizes differ.

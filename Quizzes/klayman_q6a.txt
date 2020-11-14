@@ -1,0 +1,19 @@
+a)
+
+1)
+To convert to a GNFA, two states need to be added. One added state is the new start state and the other added state is an accept state.
+The original start state is modified to no longer be the start state. All former accept states are modified to no longer be accept states.
+
+2)
+An epsilon transition needs to be added from the new start state to the former start state.
+Epsilon transitions need to be added from every former accept state to the new accept state.
+
+3)
+The transition from 1 to 3 needs to be modified to be the union of 0 and 1.
+The self-loop at 5 needs to be modified to be the union of 0, 1, and 2.
+
+b)
+The resulting transition from 1 to 3 after removing 4 would accept "(01^*(01)^*(0 U 1)) U epsilon".
+
+c)
+The resulting transition from 1 to 4 after removing 2 would accept "(01^*) U (10^*11)".

@@ -1,0 +1,6 @@
+String: 0^(20p)1^(10p)
+x = 0^n
+y = 0^m
+z = 0^(20p-m-n)1^10p
+I will pump the string down to i=0.
+The contradiction is that when i=0, xy^0z = 0^(20p-m)1^10p. Since m is greater than 0 and less than or equal to p, the number of zeros is now less than double the number of 1s but also greater than the number of 1s. That makes xy^0z not in L, which is a contradiction.

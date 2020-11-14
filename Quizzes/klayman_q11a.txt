@@ -1,0 +1,21 @@
+S -> AEF | GBH | CIJ | DLK
+
+A -> aAb | e
+E -> bP
+P -> bP | e
+F -> cF | e
+
+B -> aBb | e
+G -> aM
+M -> aM | e
+H -> cH | e
+
+C -> aC | e
+I -> bIc | e
+J -> Nc
+N -> Nc | e
+
+D -> aD | e
+K -> bKc | e
+L -> bO
+O -> bO | e

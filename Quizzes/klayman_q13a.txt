@@ -1,0 +1,23 @@
+1.
+S -> A | AC | C | epsilon
+A -> BbBa | Bba | bBa | ba | B | a
+B -> ab | CB
+C -> a | CC | Cb | Ab | b
+
+2.
+S -> AC | CC | BA | a
+A -> Ba | BA | BB | aa | ba
+B -> BB | aa | ba
+C -> AC | CC | a
+
+3.
+S -> GF | FF | a
+A -> AD | IH | BC
+B -> a | b | c
+C -> BC | AC | a | DE
+D -> a
+E -> FH
+F -> b
+G -> DA
+H -> c
+I -> BB

@@ -1,0 +1,28 @@
+String:
+2^p/2 0^p 1^p/2
+
+Cases for vxy:
+1) Only 0s
+2) 2s and 0s
+3) 0s and 1s
+
+Pumping:
+1) Pump up to i=2
+2) Pump down to i=0
+3) Pump down to i=0
+
+Contradiction:
+1)
+Here, u = 2^p/2 0^a, v = 0^b, x = 0^c, y = 0^d, z = 0^p-(a+b+c+d)1^p/2, while b and d have to be positive integers.
+So, uv^2xy^2z = 2^p/2 0^p+b+d 1^p/2.
+Since b and d are positive integers, p+b+d > p/2 + p/2 and p+b+d != p/2 must both be true. This causes a contradiction in the first condition of the language.
+
+2)
+Here, u = 2^(p/2-(b+d+f)), v = 2^b 0^c, x = 2^d 0^e, y = 2^f 0^g, z = 0^(p-(c+e+g)) 1^p/2, while b and g have to be positive integers.
+So, uv^0xy^0z = 2^(p/2-b-f) 0^(p-c-g) 1^p/2.
+Since b and g are positive integers, p/2-b-f != p/2 must be true. This causes a contradiction in the second condition of the language.
+
+3)
+Here, u = 2^p/2 0^(p-(a+c+e)), v = 0^a 1^b, x = 0^c 1^d, y = 0^e 1^f, x = 1^(p/2-(b+d+f)), while a and f have to be positive integers.
+So, uv^0xy^0z = 2^p/2 0^(p-a-e) 1^(p/2-b-f).
+Since a and f are positive integers, p/2 != p/2-b-f must be true. This causes a contradiction with the first condition of the language.

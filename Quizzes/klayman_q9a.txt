@@ -1,0 +1,7 @@
+x = 1^m
+y = 1^n
+z = 1^(p-m-n)0^p2^p
+xy^0z = 1^(p-n)0^p2^p
+xy^2z = 1^(p+n)0^p2^p
+brief explanation: This does not work because in both of these situations, the number of 0s can still divide the sum of the number of 1s and 2s.
+For some pumping lengths p, p can divide 2p-m-n or 2p+n, so both i=0 and i=2 could fail, along with any other choice of i. 
